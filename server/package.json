@@ -1,0 +1,17 @@
+{
+  "name": "campus-complaint-backend",
+  "version": "1.0.0",
+  "description": "Express REST API for Campus Complaint Management",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node seed.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "lowdb": "^1.0.0"
+  }
+}

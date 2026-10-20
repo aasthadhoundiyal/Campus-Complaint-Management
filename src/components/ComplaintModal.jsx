@@ -1,16 +1,16 @@
 import React from 'react';
-import { X, MapPin, Calendar, User, Wrench, Play, CheckCircle2 } from 'lucide-react';
+import { X, MapPin, Calendar, User, Wrench, Play, CheckCircle2, Star, MessageSquare } from 'lucide-react';
 
-export default function ComplaintModal({ complaint, onClose, onUpdateStatus }) {
+export default function ComplaintModal({ complaint, onClose, onUpdateStatus, onOpenFeedback }) {
   if (!complaint) return null;
 
   return (
     <div 
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-[2px]"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-[2px] modal-overlay"
       onClick={onClose}
     >
       <div 
-        className="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative border border-slate-100 max-h-[92vh] overflow-y-auto"
+        className="modal-content bg-white rounded-2xl max-w-lg w-full p-6 sm:p-7 shadow-2xl relative border border-slate-100 max-h-[92vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Row */}
@@ -94,6 +94,73 @@ export default function ComplaintModal({ complaint, onClose, onUpdateStatus }) {
             <span className="truncate">Assigned: {complaint.assignedTo || 'Electrical Works'}</span>
           </div>
         </div>
+
+        {/* Post-Resolution Student Feedback Card if resolved */}
+        {complaint.status === 'Resolved' && (
+          <div className="mt-4 p-3.5 rounded-xl border border-amber-200 bg-amber-50/60">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-bold text-amber-900 flex items-center gap-1.5">
+                <Star className="w-4 h-4 fill-amber-400 text-amber-500" />
+                Student Resolution Feedback
+              </span>
+              {complaint.feedback && (
+                <div className="flex items-center gap-0.5">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star
+                      key={s}
+                      className={`w-3.5 h-3.5 ${
+                        s <= complaint.feedback.rating
+                          ? 'fill-amber-400 text-amber-400'
+                          : 'text-slate-200'
+                      }`}
+                    />
+                  ))}
+                  <span className="text-xs font-bold text-amber-900 ml-1">
+                    {complaint.feedback.rating}/5
+                  </span>
+                </div>
+              )}
+            </div>
+
+            {complaint.feedback ? (
+              <div className="space-y-1.5 text-xs text-slate-700">
+                <p className="bg-white/80 p-2.5 rounded-lg border border-amber-100 text-slate-700 italic">
+                  "{complaint.feedback.comments || complaint.feedback.review || 'Satisfied with resolution.'}"
+                </p>
+                {complaint.feedback.tags && complaint.feedback.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1 pt-1">
+                    {complaint.feedback.tags.map((t) => (
+                      <span key={t} className="text-[10px] font-semibold px-2 py-0.5 rounded-md bg-white border border-amber-200 text-amber-900">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <div className="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+                  <span>Submitted by: {complaint.feedback.submittedBy || 'Student'}</span>
+                  <span>{complaint.feedback.submittedAt ? new Date(complaint.feedback.submittedAt).toLocaleDateString() : 'Verified'}</span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center justify-between gap-3 pt-1">
+                <p className="text-xs text-amber-800">
+                  No feedback rating submitted yet for this resolved ticket.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    if (onOpenFeedback) onOpenFeedback(complaint);
+                  }}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg shadow-2xs transition active:scale-95 shrink-0"
+                >
+                  <Star className="w-3.5 h-3.5 fill-current" />
+                  <span>Rate Resolution</span>
+                </button>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Resolution Activity Log */}
         <div className="mt-4">

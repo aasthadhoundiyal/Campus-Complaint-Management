@@ -7,7 +7,9 @@ import {
   CheckCircle2, 
   GraduationCap, 
   HelpCircle, 
-  X 
+  X,
+  BarChart3,
+  Sparkles
 } from 'lucide-react';
 
 export default function Sidebar({ 
@@ -15,7 +17,8 @@ export default function Sidebar({
   setActiveTab, 
   stats, 
   mobileOpen, 
-  setMobileOpen 
+  setMobileOpen,
+  user
 }) {
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -23,6 +26,7 @@ export default function Sidebar({
     { id: 'pending', label: 'Pending Review', icon: AlertCircle, count: stats.pending },
     { id: 'in-progress', label: 'In Progress', icon: Clock, count: stats.inProgress },
     { id: 'resolved', label: 'Resolved Tickets', icon: CheckCircle2, count: stats.resolved },
+    { id: 'analytics', label: 'Admin Analytics', icon: BarChart3, highlight: true },
   ];
 
   return (
@@ -125,8 +129,15 @@ export default function Sidebar({
 
           {/* Simple Academic Footer */}
           <div className="p-4 border-t border-blue-950/50 text-xs bg-[#172554] text-blue-200">
-            <p className="font-bold text-white">Office of Student Affairs</p>
-            <p className="text-blue-300/80 mt-0.5">Admin Block, Room 104</p>
+            <div className="flex items-center justify-between mb-1">
+              <p className="font-bold text-white">Office of Student Affairs</p>
+              {user && (
+                <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-blue-900/80 text-blue-200 border border-blue-800">
+                  {user.role}
+                </span>
+              )}
+            </div>
+            <p className="text-blue-300/80 text-[11px]">Admin Block, Room 104 • 2026–27</p>
           </div>
         </div>
       </aside>

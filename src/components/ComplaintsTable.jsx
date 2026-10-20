@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { ArrowUpDown, Eye } from 'lucide-react';
+import { ArrowUpDown, Eye, Star, MessageSquare } from 'lucide-react';
 import { CATEGORIES } from '../data/mockData';
 
 export default function ComplaintsTable({ 
   complaints, 
   onSelectComplaint, 
   onUpdateStatus,
+  onOpenFeedback,
   statusFilter,
   setStatusFilter,
   categoryFilter,
-  setCategoryFilter 
+  setCategoryFilter,
+  user
 }) {
   const [sortAsc, setSortAsc] = useState(false);
 
@@ -184,7 +186,7 @@ export default function ComplaintsTable({
                         <button
                           type="button"
                           onClick={() => onUpdateStatus(item.id, 'In Progress')}
-                          className="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white shadow-sm transition-colors"
+                          className="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#3B82F6] hover:bg-[#2563EB] text-white shadow-xs transition-colors"
                         >
                           Start Progress
                         </button>
@@ -193,11 +195,36 @@ export default function ComplaintsTable({
                         <button
                           type="button"
                           onClick={() => onUpdateStatus(item.id, 'Resolved')}
-                          className="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#10B981] hover:bg-[#059669] text-white shadow-sm transition-colors"
+                          className="inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-lg bg-[#10B981] hover:bg-[#059669] text-white shadow-xs transition-colors"
                         >
                           Mark Resolved
                         </button>
                       )}
+
+                      {/* Post-Resolution Rating Button or Rating Badge */}
+                      {item.status === 'Resolved' && (
+                        item.feedback ? (
+                          <div 
+                            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-lg bg-amber-50 text-amber-800 border border-amber-200 text-xs font-bold cursor-pointer hover:bg-amber-100 transition shadow-2xs"
+                            title={`Feedback: "${item.feedback.comments || item.feedback.review || 'Satisfied'}"`}
+                            onClick={() => onOpenFeedback && onOpenFeedback(item)}
+                          >
+                            <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
+                            <span>{item.feedback.rating}/5</span>
+                          </div>
+                        ) : (
+                          <button
+                            type="button"
+                            onClick={() => onOpenFeedback && onOpenFeedback(item)}
+                            className="inline-flex items-center gap-1 px-2.5 py-1 text-xs font-bold rounded-lg bg-amber-500 hover:bg-amber-600 text-white shadow-xs transition-colors active:scale-95"
+                            title="Submit 1-5 star resolution feedback"
+                          >
+                            <Star className="w-3 h-3 fill-current" />
+                            <span>Rate</span>
+                          </button>
+                        )
+                      )}
+
                       <button
                         type="button"
                         onClick={() => onSelectComplaint(item)}

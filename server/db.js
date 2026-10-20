@@ -28,6 +28,8 @@ const adapter = new FileSync(DB_FILE);
 const db      = low(adapter);
 
 // Set default structure if the file is empty / new
-db.defaults({ users: [], complaints: [] }).write();
+//   activityLog — append-only resolution audit entries (one row per status change)
+//   feedback    — student satisfaction ratings once a ticket is Resolved
+db.defaults({ users: [], complaints: [], activityLog: [], feedback: [] }).write();
 
 module.exports = db;

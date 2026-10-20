@@ -263,6 +263,99 @@
           "note": "Reported by Dr. Anita Rao, CS Department."
         }
       ]
+    },
+    {
+      "id": "CMP-2026-3032",
+      "title": "Test routing",
+      "category": "Security & Safety",
+      "priority": "High",
+      "status": "Resolved",
+      "description": "Broken lamp near gate",
+      "location": "Main Gate",
+      "submittedById": 3,
+      "submittedBy": "David Kim (student)",
+      "assignedQueue": "Campus Security & Safety Cell",
+      "assignedDept": "Security Office",
+      "escalationEmail": "security@campus.edu",
+      "slaHours": 6,
+      "slaDeadline": "2026-10-18T19:40:03.032Z",
+      "date": "2026-10-18",
+      "updatedAt": "2026-10-18T13:40:03.143Z",
+      "timeline": [
+        {
+          "status": "Submitted",
+          "timestamp": "2026-10-18T13:40:03.032Z",
+          "note": "Complaint submitted by David Kim. Auto-routed to \"Campus Security & Safety Cell\".",
+          "actor": "David Kim",
+          "actorRole": "student"
+        },
+        {
+          "status": "In Progress",
+          "timestamp": "2026-10-18T13:40:03.131Z",
+          "note": "Officer dispatched to inspect the area.",
+          "actor": "Admin Officer",
+          "actorRole": "admin"
+        },
+        {
+          "status": "Resolved",
+          "timestamp": "2026-10-18T13:40:03.143Z",
+          "note": "New lamp installed and tested.",
+          "actor": "Admin Officer",
+          "actorRole": "admin"
+        }
+      ],
+      "feedback": {
+        "rating": 4,
+        "review": "Fixed quickly, thanks!",
+        "submittedAt": "2026-10-18T13:40:03.236Z"
+      }
     }
-  ]
+  ],
+  "activityLog": [
+    {
+      "logId": "9c112a46-6b99-4ab9-af18-76f8a5e83db9",
+      "complaintId": "CMP-2026-3032",
+      "fromStatus": null,
+      "toStatus": "Pending",
+      "timestamp": "2026-10-18T13:40:03.032Z",
+      "actor": "David Kim",
+      "actorId": 3,
+      "actorRole": "student",
+      "note": "Complaint created and routed to \"Campus Security & Safety Cell\"."
+    },
+    {
+      "logId": "0b81aa4f-4722-4b85-b06d-7f4d7ddc44c8",
+      "complaintId": "CMP-2026-3032",
+      "fromStatus": "In Progress",
+      "toStatus": "In Progress",
+      "timestamp": "2026-10-18T13:40:03.131Z",
+      "actor": "Admin Officer",
+      "actorId": 7,
+      "actorRole": "admin",
+      "note": "Officer dispatched to inspect the area."
+    },
+    {
+      "logId": "967c73d7-287c-44ad-8a32-71f09040ec6e",
+      "complaintId": "CMP-2026-3032",
+      "fromStatus": "Resolved",
+      "toStatus": "Resolved",
+      "timestamp": "2026-10-18T13:40:03.143Z",
+      "actor": "Admin Officer",
+      "actorId": 7,
+      "actorRole": "admin",
+      "note": "New lamp installed and tested."
+    }
+  ],
+  "feedback": [
+    {
+      "feedbackId": "33cd30dc-32e7-4c54-9f75-21bf97d59c93",
+      "complaintId": "CMP-2026-3032",
+      "submittedBy": "David Kim",
+      "submitterId": 3,
+      "rating": 4,
+      "review": "Fixed quickly, thanks!",
+      "timestamp": "2026-10-18T13:40:03.236Z"
+    }
+  ],
+  "notificationReads": []
 }
